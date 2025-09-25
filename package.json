@@ -1,0 +1,17 @@
+{
+  "name": "deep-dive-data",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hands-on workshop project for the AgileTD 2025 Deep Dive on Test Data Management.",
+  "scripts": {
+    "install:all": "npm install",
+    "test": "npm test --workspace=e2e-tests",
+    "test:ui": "npm run test:ui --workspace=e2e-tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "e2e-tests"
+  ]
+}
