@@ -13,9 +13,11 @@ test.describe('Book Management and Data Integrity', () => {
   
   test('(#17) should handle long book titles', async ({ page, request }) => {
     const veryLongTitle = 'This Title Is Intentionally Made Very Long To Test The Hypothesis That The Backend API Might Silently Truncate It Without Returning An Error Which Could Lead To Subtle Bugs In The User Interface When Searching For The Full Title Later On And Finding No Results ' + 'a'.repeat(200);
+    
+    // The API silently truncates the title to 255 chars, but returns 200 OK. This test passes.
     const response = await request.post('/api/books', {
         data: { title: veryLongTitle, author: 'Dr. Edge Case' },
-    // The API silently truncates the title to 255 chars, but returns 200 OK. This test passes.
+    });
     expect(response.ok()).toBeTruthy();
   });
 

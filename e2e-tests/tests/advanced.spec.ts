@@ -1,8 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 test.describe('Systemic and Advanced Scenarios', () => {
 
-    const login = async (page, email, password) => {
+    const login = async (page : Page, email : string, password : string) => {
         await page.goto('/login');
         await page.getByLabel('Email').fill(email);
         await page.getByLabel('Password').fill(password);

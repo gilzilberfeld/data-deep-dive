@@ -5,8 +5,6 @@ test.describe('Admin, Permissions, and Configuration', () => {
     test('(#6, #23) should show a new user on the admin dashboard', async ({ page, request }) => {
         const name = `New User ${Date.now()}`;
         await request.post('/api/users', { data: { name, email: `${name}@test.com`, password: 'password' } });
-
-        // This may fail if the dashboard data is cached
         await expect(page.getByText(name)).toBeVisible();
     });
 

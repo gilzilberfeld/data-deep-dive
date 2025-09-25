@@ -8,6 +8,7 @@
 import { test, expect } from '@playwright/test';
 import { TestStateFactory } from './models/test_state_factory';
 import { BookBuilder } from './models/book_builder';
+import { UserBuilder } from './models/user_builder';
 
 test.describe('Atomic Systemic and Advanced Tests', () => {
   let factory: TestStateFactory;
@@ -21,7 +22,8 @@ test.describe('Atomic Systemic and Advanced Tests', () => {
   });
 
   test('should reflect API updates in the UI after a reload (#23)', async ({ page, request }) => {
-    const book = await factory.createBook({ title: 'Original Title' });
+    const bookData = new BookBuilder().withTitle('Original Title').build();
+    const book = await factory.createBook(bookData);
     await page.goto(`/books/${book.id}`);
     await expect(page.locator('h1')).toHaveText('Original Title');
 
@@ -39,9 +41,10 @@ test.describe('Atomic Systemic and Advanced Tests', () => {
     // one test that fails, but to design tests that respect the limits.
     // The factory pattern can be extended to include a delay.
     for (let i = 0; i < 5; i++) {
-        await factory.createBook({ title: `Rate Limit Test Book ${i}` });
-        // In a real scenario, the factory could have a built-in delay
-        // await new Promise(res => setTimeout(res, 250));
+      const bookData = new BookBuilder().withTitle(`Rate Limit Test Book ${i}`).build();
+      await factory.createBook(bookData);
+      // In a real scenario, the factory could have a built-in delay
+      // await new Promise(res => setTimeout(res, 250));
     }
     // The test passes by not triggering the rate limit.
   });
@@ -50,7 +53,8 @@ test.describe('Atomic Systemic and Advanced Tests', () => {
     // The solution is to not rely on relative terms like "today".
     // Instead, create data with a specific timestamp and query for that timestamp.
     const specificDate = '2025-09-24T12:00:00.000Z';
-    const book = await factory.createBook({ createdAt: specificDate });
+    const bookData = new BookBuilder().withTitle('Date Specific Book').withCreatedAt(specificDate).build();
+    const book = await factory.createBook(bookData);
 
     // The test would then navigate to a page that allows filtering by date
     // and assert the book is present when that specific date is chosen.
@@ -60,8 +64,13 @@ test.describe('Atomic Systemic and Advanced Tests', () => {
 
    test('a user should be forced to an active state for testing (#16)', async ({ request, page }) => {
     // Create a user in the default "pending validation" state
-    const user = await factory.createUser({ validated: false });
-    
+    const userData = new UserBuilder()
+              .withName('Pending User')
+              .withEmail(`pendinguser@test.com`)
+              .withPassword('password')
+              .withValidated(false).build();
+    const user = await factory.createUser(userData);
+
     // Force the state change via a special API endpoint for tests
     await request.post(`/api/users/${user.id}/force-validation`);
     
@@ -76,7 +85,8 @@ test.describe('Atomic Systemic and Advanced Tests', () => {
 
   test('should avoid resource contention by using unique data (#9)', async ({ page }) => {
     // Test A
-    const bookA = await factory.createBook();
+    const bookDataA = new BookBuilder().withTitle('Book A').build();
+    const bookA = await factory.createBook(bookDataA);
     await page.goto(`/books/${bookA.id}/edit`);
     await page.getByLabel('Title').fill('New Title for Book A');
 
@@ -89,4 +99,6 @@ test.describe('Atomic Systemic and Advanced Tests', () => {
     await expect(page.locator('h1')).toHaveText('New Title for Book A');
   });
 });
+
+
 
