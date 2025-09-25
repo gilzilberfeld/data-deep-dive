@@ -22,7 +22,7 @@ test.describe('Atomic Search and Discovery Tests', () => {
 
   test('should find a newly created book in the search results (#7)', async ({ page }) => {
     const book = new BookBuilder()
-                .withTitle(`The Singular Quest of ${Date.now()}`)
+                .withTitle(`The Singular Quest`)
                 .withAuthor('John Doe').build();
     await factory.createBook(book);
 
@@ -30,11 +30,11 @@ test.describe('Atomic Search and Discovery Tests', () => {
 
     // Use polling to handle potential search index lag
     await expect.poll(async () => {
-      await page.getByPlaceholder('Search for a book').fill(`The Singular Quest of ${Date.now()}`);
+      await page.getByPlaceholder('Search for a book').fill(`The Singular Quest`);
       await page.getByRole('button', { name: 'Search' }).click();
-      return await page.getByRole('heading', { name: `The Singular Quest of ${Date.now()}` }).isVisible();
+      return await page.getByRole('heading', { name: `The Singular Quest` }).isVisible();
     }, {
-      message: `Book "${`The Singular Quest of ${Date.now()}`}" did not appear in search results within the timeout.`,
+      message: `Book "${`The Singular Quest`}" did not appear in search results within the timeout.`,
       timeout: 10000,
     }).toBe(true);
   });

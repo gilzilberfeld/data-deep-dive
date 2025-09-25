@@ -16,7 +16,7 @@ test.describe('Search, Discovery, and Pagination', () => {
   });
 
   test('(#7) should find a newly created book via search', async ({ page, request }) => {
-    const title = `My Test Book ${Date.now()}`;
+    const title = `My Test Book`;
     await request.post('/api/books', { data: { title, author: 'Searchable Author' } });
 
     await page.goto('/search');

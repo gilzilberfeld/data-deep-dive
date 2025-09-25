@@ -10,7 +10,7 @@ test.describe('Systemic and Advanced Scenarios', () => {
     };
 
     test('(#22) should login successfully using a helper', async ({ page, request }) => {
-        const email = `helper-user-${Date.now()}@test.com`;
+        const email = `helper-user@test.com`;
         await request.post('/api/users', { data: { name: 'Helper User', email, password: 'password' } });
         
         await login(page, email, 'password');

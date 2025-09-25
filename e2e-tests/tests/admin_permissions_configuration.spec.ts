@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Admin, Permissions, and Configuration', () => {
 
     test('(#6, #23) should show a new user on the admin dashboard', async ({ page, request }) => {
-        const name = `New User ${Date.now()}`;
+        const name = `New User`;
         await request.post('/api/users', { data: { name, email: `${name}@test.com`, password: 'password' } });
         await expect(page.getByText(name)).toBeVisible();
     });
@@ -15,7 +15,7 @@ test.describe('Admin, Permissions, and Configuration', () => {
     });
 
     test('(#13) should prevent standard users from accessing the admin page', async ({ page, request }) => {
-        const email = `std-user-${Date.now()}@test.com`;
+        const email = `std-user@test.com`;
         await request.post('/api/users', { data: { name: 'Std User', email, password: 'password' } });
         await page.goto('/login');
         await page.getByLabel('Email').fill(email);
