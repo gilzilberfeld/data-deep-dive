@@ -24,6 +24,7 @@ test.describe('User Onboarding and First Review', () => {
     await expect(page.getByText('The Lord of the Rings')).toBeVisible();
   });
 
+  // This is where we start
   test('(#1) should allow the user to add a review to their new book', async ({ page }) => {
     await page.getByText('The Lord of the Rings').click();
     await page.getByLabel('Rating').selectOption('5');

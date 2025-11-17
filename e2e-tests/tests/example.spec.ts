@@ -5,6 +5,7 @@
 */
 
 import { test, expect } from '@playwright/test';
+import { ReviewData } from '../models/review_builder';
 
 test.describe('Simple Example Suite', () => {
 
@@ -19,4 +20,17 @@ test.describe('Simple Example Suite', () => {
     await expect(page.getByLabel('Email')).toHaveValue('user@example.com');
     await page.getByRole('button', { name: 'Log In' }).click();
   });
+
+  test('api calling using playwright', async ({ request }) => {
+    const reviewData : ReviewData = {
+      rating: 1,
+      comment: 'Great book!',
+      userId: 'myId',
+      bookId: 'bookId'
+    }
+      const response = await request.post(`/api/reviews`, { data: reviewData });
+      const review = await response.json();
+      
+       
+  })
 });
