@@ -21,7 +21,6 @@ test.describe('Search, Discovery, and Pagination', () => {
 
     await page.goto('/search');
     await page.getByLabel('Search').fill(title);
-    // This may fail if the search index is slow to update
     await expect(page.getByText(title)).toBeVisible();
   });
 
@@ -30,12 +29,10 @@ test.describe('Search, Discovery, and Pagination', () => {
     await request.post('/api/books', { data: { title, author: 'Tester' } });
     
     await page.goto('/search');
-    // This test fails if the search logic is case-sensitive
     await expect(page.getByText(title)).toBeVisible();
   });
 
   test('(#15) should display a newly created book on the main list', async ({ page, request }) => {
-    // Imagine we run this test 11 times. Eventually, it will fail due to pagination.
     const title = `Book Number ${Math.floor(Math.random() * 1000)}`;
     await request.post('/api/books', { data: { title, author: 'Pagination Tester' } });
     await page.goto('/');

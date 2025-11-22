@@ -6,7 +6,6 @@ test.describe('Systemic and Advanced Scenarios', () => {
         await page.goto('/login');
         await page.getByLabel('Email').fill(email);
         await page.getByLabel('Password').fill(password);
-        // This helper is leaky. It returns before the page has fully navigated.
     };
 
     test('(#22) should login successfully using a helper', async ({ page, request }) => {
@@ -27,7 +26,7 @@ test.describe('Systemic and Advanced Scenarios', () => {
     }
 
     test('(#19) should verify book creation with an external service', async ({ page, request }) => {
-        // This test relies on an external ISBN service that is mocked to be unreliable.
+        // This test relies on an external ISBN service
         await page.goto('/add-book');
         await page.getByLabel('Title').fill('A Book with ISBN');
         await page.getByLabel('Author').fill('External Service');

@@ -9,7 +9,6 @@ test.describe('Admin, Permissions, and Configuration', () => {
     });
 
     test('(#8) should see the new button from the A/B test', async ({ page }) => {
-        // This test will randomly fail 50% of the time.
         await page.goto('/');
         await expect(page.getByRole('button', { name: 'Submit Review v2' })).toBeVisible();
     });
@@ -27,11 +26,8 @@ test.describe('Admin, Permissions, and Configuration', () => {
     });
 
 test('(#14) should reject a review when the profanity filter is enabled', async({ page, request }) => {
-        // This test changes a global server configuration but does not clean up after itself in an `afterEach` block.
-        // This will cause other tests to fail unexpectedly if they try to use a word from the filter list.
         await request.post('/api/settings/profanity-filter', { data: { enabled: true }});
         
-        // Setup: Create user and book directly via API calls
         const userResponse = await request.post('/api/users', {
             data: { name: 'Profanity Tester', email: `profanity-${Date.now()}@test.com`, password: 'password' }
         });

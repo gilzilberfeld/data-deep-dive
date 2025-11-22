@@ -29,8 +29,6 @@ test.describe('Atomic Systemic and Advanced Tests', () => {
 
     // Simulate a background update
     await request.patch(`/api/books/${book.id}`, { data: { title: 'Updated Title' } });
-
-    // The key step: reload the page to get fresh state from the server
     await page.reload();
 
     await expect(page.locator('h1')).toHaveText('Updated Title');
