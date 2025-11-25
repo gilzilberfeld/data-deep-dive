@@ -6,10 +6,10 @@
 // #25 (Stale UI State - although this is a systemic problem, its fix is often here)
 
 import { test, expect } from '@playwright/test';
-import { TestStateFactory } from './models/test_state_factory';
-import { BookBuilder } from './models/book_builder';
-import { ReviewBuilder } from './models/review_builder';
-import { UserBuilder } from './models/user_builder';
+import { TestStateFactory } from '../models/test_state_factory';
+import { BookBuilder } from '../models/book_builder';
+import { ReviewBuilder } from '../models/review_builder';
+import { UserBuilder } from '../models/user_builder';
 
 test.describe('Atomic Book Management Tests', () => {
   let factory: TestStateFactory;
