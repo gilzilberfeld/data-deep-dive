@@ -17,7 +17,7 @@ test.describe('Systemic and Advanced Scenarios', () => {
     });
 
     for (let i = 0; i < 5; i++) {
-        test(`(#10, #20) should allow creating multiple books quickly #${i}`, async ({ request }) => {
+        test(`(#10) should allow creating multiple books quickly #${i}`, async ({ request }) => {
             const response = await request.post('/api/books', {
                 data: { title: `Rate Limit Test Book ${i}`, author: 'Load Tester' },
             });

@@ -28,12 +28,12 @@ test.describe('Search, Discovery, and Pagination', () => {
     const title = 'Automation Rocks';
     await request.post('/api/books', { data: { title, author: 'Tester' } });
     
-    await page.goto('/search');
+    await page.goto('/search/'+ title.toLowerCase());
     await expect(page.getByText(title)).toBeVisible();
   });
 
   test('(#15) should display a newly created book on the main list', async ({ page, request }) => {
-    const title = `Book Number ${Math.floor(Math.random() * 1000)}`;
+    const title = `Book Number ${Math.floor(Math.random() * 100)}`;
     await request.post('/api/books', { data: { title, author: 'Pagination Tester' } });
     await page.goto('/');
     await expect(page.getByText(title)).toBeVisible();

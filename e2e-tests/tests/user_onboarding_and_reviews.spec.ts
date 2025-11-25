@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('User Onboarding and First Review', () => {
   const sharedUser = {
-    email: 'test-user@example.com',
+    email: 'user@test',
     password: 'password123',
     name: 'Test User'
   };
