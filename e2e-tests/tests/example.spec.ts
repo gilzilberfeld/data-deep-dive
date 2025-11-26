@@ -5,7 +5,7 @@
 */
 
 import { test, expect } from '@playwright/test';
-import { ReviewData } from '../models/review_builder';
+import { ReviewData } from '../helpers/review_builder';
 
 test.describe('Simple Example Suite', () => {
 
