@@ -6,9 +6,9 @@
 // #21 (The Midnight Bug - handled by atomic data creation)
 
 import { test, expect } from '@playwright/test';
-import { TestStateFactory } from '../models/test_state_factory';
-import { UserBuilder } from '../models/user_builder';
-import { BookBuilder } from '../models/book_builder';
+import { TestStateFactory } from '../helpers/test_state_factory';
+import { UserBuilder } from '../helpers/user_builder';
+import { BookBuilder } from '../helpers/book_builder';
 
 test.describe('Atomic Onboarding and Review Tests', () => {
   let factory: TestStateFactory;

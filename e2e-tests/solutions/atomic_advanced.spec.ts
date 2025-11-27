@@ -6,9 +6,9 @@
 // #23 (Stale Cache Read)
 
 import { test, expect } from '@playwright/test';
-import { TestStateFactory } from '../models/test_state_factory';
-import { BookBuilder } from '../models/book_builder';
-import { UserBuilder } from '../models/user_builder';
+import { TestStateFactory } from '../helpers/test_state_factory';
+import { BookBuilder } from '../helpers/book_builder';
+import { UserBuilder } from '../helpers/user_builder';
 
 test.describe('Atomic Systemic and Advanced Tests', () => {
   let factory: TestStateFactory;
